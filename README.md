@@ -47,7 +47,6 @@ The **Aurora Scholarship Portal** addresses the challenge of **scattered and har
 
 * Isha Chakraborty
 * Asmita Banerjee
-* Ankana Sadhukhan
 
 ### 🚀 Our Approach
 
@@ -78,41 +77,31 @@ The **Aurora Scholarship Portal** addresses the challenge of **scattered and har
 
 ### 🏠 Homepage
 
-![Homepage](./assets/homepage.png)
+<img width="498" height="799" alt="home" src="https://github.com/user-attachments/assets/6e212d05-190e-486f-971d-1b9781a66afd" />
 
 ---
 
 ### 📊 Apply Section
 
-![Apply](./assets/apply.png)
+<img width="445" height="432" alt="apply" src="https://github.com/user-attachments/assets/9a820c8f-04c6-47a4-84cd-d1880728c70d" />
 
 ---
 
 ### 📝 Student Login
 
-![Student](./assets/student.png)
+<img width="379" height="530" alt="studentlogin" src="https://github.com/user-attachments/assets/db9f8bb1-b4e4-4d96-8b28-5b945ed9ac03" />
 
 ---
 
 ### 🔐 Admin Login
 
-![Admin](./assets/admin.png)
+<img width="385" height="905" alt="about" src="https://github.com/user-attachments/assets/872a4cad-57ca-4653-9ee9-31995283d1fe" />
 
 ---
 
 ## 📽️ About Us
 
-
-![About](./assets/about<img width="379" height="530" alt="studentlogin" src="https://github.com/user-attachments/assets/db9f8bb1-b4e4-4d96-8b28-5b945ed9ac03" />
-<img width="498" height="799" alt="home" src="https://github.com/user-attachments/assets/6e212d05-190e-486f-971d-1b9781a66afd" />
-<img width="445" height="432" alt="apply" src="https://github.com/user-attachments/assets/9a820c8f-04c6-47a4-84cd-d1880728c70d" />
 <img width="478" height="574" alt="adminlogin" src="https://github.com/user-attachments/assets/29889f21-0a88-4ecc-a85a-5a36fa2ca8fc" />
-<img width="385" height="905" alt="about" src="https://github.com/user-attachments/assets/872a4cad-57ca-4653-9ee9-31995283d1fe" />
-<img width="379" height="530" alt="studentlogin" src="https://github.com/user-attachments/assets/858ef2ac-f6cf-471c-bfee-5b253f829256" />
-<img width="498" height="799" alt="home" src="https://github.com/user-attachments/assets/115d53fa-20f8-4e0a-88a7-b6f71b46a59d" />
-<img width="445" height="432" alt="apply" src="https://github.com/user-attachments/assets/02d0be5f-3331-45c4-8ff9-54f3bedd8f23" />
-<img width="478" height="574" alt="adminlogin" src="https://github.com/user-attachments/assets/1b0165cd-de44-404f-9a42-9c6a3b3f758d" />
-<img width="385" height="905" alt="about" src="https://github.com/user-attachments/assets/cf97152d-6051-4270-a425-23b367ef8f99" />
 .png)
 ---
 
