@@ -35,18 +35,9 @@ The **Aurora Scholarship Portal** addresses the challenge of **scattered and har
 * Apply seamlessly
 * Track application status
 
-🎯 Our goal is to **reduce barriers** and **increase access to education funding**.
+🎯 My goal is to **reduce barriers** and **increase access to education funding**.
 
 ---
-
-## 🧠 Team & Approach
-
-👥 **Team Name:** `Code Crackers`
-
-### 👩‍💻 Team Members
-
-* Isha Chakraborty
-* Asmita Banerjee
 
 ### 🚀 Our Approach
 
