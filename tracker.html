@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Application Tracker</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(to right, #f0f4f8, #e6ecf3);
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .card {
+      transition: all 0.3s ease;
+      background: white;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+    .status-pending {
+      color: #d97706;
+      background-color: #fef3c7;
+    }
+    .status-review {
+      color: #2563eb;
+      background-color: #dbeafe;
+    }
+    .status-approved {
+      color: #059669;
+      background-color: #d1fae5;
+    }
+    .status-rejected {
+      color: #dc2626;
+      background-color: #fee2e2;
+    }
+    .progress-step {
+      width: 1rem;
+      height: 1rem;
+      border-radius: 9999px;
+      border: 2px solid white;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body class="min-h-screen p-6">
+  <div class="max-w-4xl mx-auto">
+    <header class="bg-blue-700 text-white p-6 rounded-lg shadow-lg mb-8 text-center">
+      <h1 class="text-3xl font-bold">Application Tracker</h1>
+      <p class="text-blue-100 mt-2">Track your scholarship application status</p>
+    </header>
+
+    <main class="space-y-6">
+      <!-- Application Details Card -->
+      <section class="card p-6">
+        <h2 class="text-xl font-semibold text-blue-800 mb-4">Application Details</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div><span class="font-medium">Name:</span> <span id="applicantName">Loading...</span></div>
+          <div><span class="font-medium">Application ID:</span> <span id="applicationId">-</span></div>
+          <div><span class="font-medium">Status:</span> <span id="currentStatus" class="px-2 py-1 rounded-full text-sm">Loading...</span></div>
+          <div><span class="font-medium">Last Updated:</span> <span id="lastUpdated">-</span></div>
+        </div>
+      </section>
+
+      <!-- Progress Tracker -->
+      <section class="card p-6">
+        <h2 class="text-xl font-semibold text-blue-800 mb-6">Application Progress</h2>
+        
+        <div class="flex justify-between text-sm text-gray-600 mb-2">
+          <span>Submitted</span>
+          <span>Review</span>
+          <span>Decision</span>
+          <span>Complete</span>
+        </div>
+        
+        <div class="relative h-4 mb-6">
+          <div class="absolute top-1/2 left-0 right-0 h-1 bg-gray-200 transform -translate-y-1/2"></div>
+          <div id="progressFill" class="absolute top-1/2 left-0 h-1 bg-blue-600 transform -translate-y-1/2 transition-all duration-500" style="width: 0%"></div>
+          
+          <div class="flex justify-between relative z-10">
+            <div id="step1" class="progress-step bg-gray-200"></div>
+            <div id="step2" class="progress-step bg-gray-200"></div>
+            <div id="step3" class="progress-step bg-gray-200"></div>
+            <div id="step4" class="progress-step bg-gray-200"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Status History -->
+      <section class="card p-6">
+        <h2 class="text-xl font-semibold text-blue-800 mb-4">Status History</h2>
+        <div id="statusHistory" class="space-y-4">
+          <div class="text-center py-4 text-gray-500">Loading history...</div>
+        </div>
+      </section>
+
+      <!-- Help Section -->
+      <section class="card p-6 text-center">
+        <button onclick="loadApplicationData()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+          Refresh Status
+        </button>
+        <p class="mt-4 text-gray-600">Need help? <a href="mailto:support@example.com" class="text-blue-600">Contact us</a></p>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // Key for storing application status
+    const STATUS_KEY = 'scholarshipAppStatus';
+    
+    document.addEventListener('DOMContentLoaded', function() {
+      loadApplicationData();
+      
+      // Listen for status updates from admin
+      window.addEventListener('storage', function(e) {
+        if (e.key === STATUS_KEY) {
+          console.log('Status update detected');
+          loadApplicationData();
+        }
+      });
+    });
+
+    function loadApplicationData() {
+      try {
+        // Get the application data from localStorage
+        const applications = JSON.parse(localStorage.getItem('scholarshipApplications')) || [];
+        const latestApp = applications[applications.length - 1];
+        
+        if (!latestApp) {
+          showNoApplication();
+          return;
+        }
+
+        // Display basic info
+        document.getElementById('applicantName').textContent = 
+          `${latestApp.formData?.title || ''} ${latestApp.formData?.fullname || 'Applicant'}`;
+        
+        document.getElementById('applicationId').textContent = 
+          `APP-${new Date(latestApp.timestamp).getTime().toString().slice(-6)}`;
+        
+        document.getElementById('lastUpdated').textContent = 
+          new Date().toLocaleString();
+
+        // Get status from admin or default
+        const statusData = JSON.parse(localStorage.getItem(STATUS_KEY)) || {
+          status: 'Submitted',
+          progress: 25
+        };
+
+        updateStatusDisplay(statusData);
+        updateProgress(statusData.progress);
+        updateStatusHistory(statusData.status, latestApp.timestamp);
+        
+      } catch (error) {
+        console.error('Error loading application:', error);
+        showNoApplication();
+      }
+    }
+
+    function updateStatusDisplay(statusData) {
+      const statusElement = document.getElementById('currentStatus');
+      statusElement.textContent = statusData.status;
+      
+      // Reset classes
+      statusElement.className = 'px-2 py-1 rounded-full text-sm ';
+      
+      // Set appropriate status color
+      if (statusData.status.includes('Submitted')) {
+        statusElement.classList.add('status-pending');
+      } 
+      else if (statusData.status.includes('Review')) {
+        statusElement.classList.add('status-review');
+      } 
+      else if (statusData.status.includes('Approved')) {
+        statusElement.classList.add('status-approved');
+      } 
+      else if (statusData.status.includes('Rejected')) {
+        statusElement.classList.add('status-rejected');
+      }
+    }
+
+    function updateProgress(progress) {
+      console.log(`Updating progress to ${progress}%`);
+      
+      // Update progress bar
+      document.getElementById('progressFill').style.width = `${progress}%`;
+      
+      // Update step indicators
+      const steps = [1, 2, 3, 4];
+      steps.forEach(step => {
+        const element = document.getElementById(`step${step}`);
+        if (step * 25 <= progress) {
+          element.classList.remove('bg-gray-200');
+          element.classList.add('bg-blue-600');
+        } else {
+          element.classList.add('bg-gray-200');
+          element.classList.remove('bg-blue-600');
+        }
+      });
+    }
+
+    function updateStatusHistory(currentStatus, timestamp) {
+      const history = [
+        {
+          status: "Application Submitted",
+          date: new Date(timestamp).toLocaleDateString(),
+          description: "We've received your application."
+        }
+      ];
+
+      if (currentStatus.includes('Review')) {
+        history.push({
+          status: "Under Review",
+          date: new Date(Date.now() - 86400000).toLocaleDateString(),
+          description: "Your application is being evaluated."
+        });
+      }
+
+      if (currentStatus.includes('Approved')) {
+        history.push({
+          status: "Approved",
+          date: new Date().toLocaleDateString(),
+          description: "Congratulations! Your application was approved."
+        });
+      } else if (currentStatus.includes('Rejected')) {
+        history.push({
+          status: "Rejected",
+          date: new Date().toLocaleDateString(),
+          description: "We're sorry, your application wasn't approved."
+        });
+      }
+
+      // Render history
+      document.getElementById('statusHistory').innerHTML = history.map(item => `
+        <div class="border-l-2 border-blue-500 pl-4 py-2">
+          <div class="flex justify-between items-center">
+            <strong>${item.status}</strong>
+            <span class="text-sm text-gray-500">${item.date}</span>
+          </div>
+          <p class="text-sm text-gray-600 mt-1">${item.description}</p>
+        </div>
+      `).join('');
+    }
+
+    function showNoApplication() {
+      document.getElementById('applicantName').textContent = "No application found";
+      document.getElementById('currentStatus').textContent = "Not submitted";
+      document.getElementById('statusHistory').innerHTML = `
+        <div class="text-center py-4 text-gray-500">
+          No application data available. Please submit an application first.
+        </div>
+      `;
+      updateProgress(0);
+    }
+  </script>
+</body>
+</html>

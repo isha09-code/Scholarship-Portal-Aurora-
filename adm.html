@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Scholarship Admin Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Charts Loader -->
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+  <!-- Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f2f6fa;
+      margin: 0;
+      padding: 0;
+    }
+
+    .enrollment-box {
+      background-color: #ffffff;
+      border: 2px solid #007bff;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 20px auto;
+      max-width: 700px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .enrollment-box ul {
+      list-style-type: square;
+      padding-left: 20px;
+      font-size: 16px;
+      color: #333;
+    }
+
+    table {
+      width: 100%;
+      margin: 30px auto;
+      border-collapse: collapse;
+      background-color: #fff;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 12px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #007bff;
+      color: #fff;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    #bargraph {
+      width: 90%;
+      height: 500px;
+      margin: 40px auto;
+    }
+
+    .login-table th, .login-table td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+
+    .pdf-container {
+      height: 80vh;
+      width: 100%;
+      border: 1px solid #e2e8f0;
+      position: relative;
+    }
+
+    .pdf-container::before {
+      content: "AURORA SCHOLARSHIPS";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-30deg);
+      font-size: 48px;
+      color: rgba(0, 0, 0, 0.1);
+      pointer-events: none;
+      z-index: 10;
+      white-space: nowrap;
+    }
+
+    .nav-active {
+      background-color: #1d4ed8;
+    }
+
+    /* Added to ensure buttons are visible */
+    .action-buttons {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .approve-btn {
+      background-color: #16a34a !important;
+    }
+    .reject-btn {
+      background-color: #dc2626 !important;
+    }
+    .action-buttons {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+  }
+  .approve-btn {
+  background-color: #16a34a !important;
+}
+  .reject-btn {
+  background-color: #dc2626 !important;
+}
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="bg-blue-800 text-white shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <span class="text-xl font-bold">Aurora Scholarships</span>
+          </div>
+          <div class="hidden md:block">
+            <div class="ml-10 flex items-baseline space-x-4">
+              <a href="adm.html" class="nav-active px-3 py-2 rounded-md text-sm font-medium">Statistics Dashboard</a>
+              <a href="aadm.html" class="hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium">Document Submissions</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container mx-auto px-4 py-8">
+    <h1 class="text-4xl font-bold mb-10 text-center text-blue-800">Scholarship Report & Admin Dashboard</h1>
+
+    <!-- Enrollment Section -->
+    <div class="enrollment-box">
+      <h2 class="text-2xl font-semibold">Year-wise Student Enrollment (2020–2025)</h2>
+      <ul>
+        <li>2020 – 50,550 students</li>
+        <li>2021 – 75,950 students</li>
+        <li>2022 – 90,983 students</li>
+        <li>2023 – 1,22,457 students</li>
+        <li>2024 – 1,69,435 students</li>
+        <li>2025 – 2,59,385 students</li>
+      </ul>
+    </div>
+
+    <!-- Department-wise Table -->
+    <h2 class="text-2xl font-semibold mt-12 text-center">Department-wise Applicants & Scholarships</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Department</th>
+          <th>Applicants (2024)</th>
+          <th>Applicants (2025)</th>
+          <th>Scholarship Amount (2024)</th>
+          <th>Scholarship Amount (2025)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Engineering</td><td>1,200</td><td>1,500</td><td>₹1,00,000</td><td>₹1,00,000</td></tr>
+        <tr><td>Medical</td><td>850</td><td>1,050</td><td>₹95,000</td><td>₹1,00,000</td></tr>
+        <tr><td>Graduate</td><td>1,000</td><td>1,200</td><td>₹85,000</td><td>₹90,000</td></tr>
+        <tr><td>Post Graduate</td><td>600</td><td>750</td><td>₹75,000</td><td>₹80,000</td></tr>
+        <tr><td>Class 9</td><td>950</td><td>1,100</td><td>₹30,000</td><td>₹35,000</td></tr>
+        <tr><td>Class 11</td><td>1,000</td><td>1,300</td><td>₹40,000</td><td>₹50,000</td></tr>
+      </tbody>
+    </table>
+
+    <!-- Bar Graph -->
+    <h2 class="text-2xl font-semibold mt-12 text-center">Applications & Registrations Growth</h2>
+    <div id="bargraph"></div>
+
+    <!-- Applications Section -->
+    <div class="max-w-6xl mx-auto bg-white rounded-lg shadow-md p-6 mt-16">
+      <h1 class="text-3xl font-bold text-blue-800 mb-6">Scholarship Applications</h1>
+
+      <div class="mb-4 flex justify-between items-center">
+        <div>
+          <button onclick="refreshApplications()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+            Refresh List
+          </button>
+          <button onclick="clearAllApplications()" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 ml-2">
+            Clear All
+          </button>
+        </div>
+        <div class="text-gray-600" id="applicationCount">0 applications</div>
+      </div>
+
+      <div id="applicationsList" class="space-y-4"></div>
+      <div id="noApplications" class="text-center py-8 text-gray-500">No applications found.</div>
+    </div>
+
+    <!-- Student Login Records -->
+    <div class="max-w-6xl mx-auto bg-white rounded-lg shadow-lg p-6 mt-16">
+      <h2 class="text-2xl font-bold text-blue-800 mb-6 text-center">Student Login Records</h2>
+
+      <div class="mb-4 flex justify-between items-center">
+        <div>
+          <button onclick="refreshData()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 mr-2">
+            Refresh Data
+          </button>
+          <button onclick="clearData()" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">
+            Clear All Data
+          </button>
+        </div>
+        <div id="recordCount" class="text-gray-600"></div>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="login-table w-full">
+          <thead>
+            <tr class="bg-gray-200">
+              <th>Username</th>
+              <th>Password</th>
+              <th>Login Time</th>
+            </tr>
+          </thead>
+          <tbody id="loginData"></tbody>
+        </table>
+      </div>
+      <div id="noDataMessage" class="text-center py-8 text-gray-500 hidden">No login records found.</div>
+    </div>
+
+    <!-- Link to Document Submissions -->
+    <div class="text-center mt-10 mb-10">
+      <a href="aadm.html" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 text-lg font-semibold transition duration-300">
+        View Document Submissions →
+      </a>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    google.charts.load("current", { packages: ['corechart'] });
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+      const data = google.visualization.arrayToDataTable([
+        ['Category', 'Count', { role: 'style' }],
+        ['No. of Students (2024)', 169435, 'color: #007bff'],
+        ['No. of Students (2025)', 259385, 'color: #ff7043'],
+        ['Application Forms', 125000, 'color: #4caf50'],
+        ['Registered Candidates', 116000, 'color: #8e24aa']
+      ]);
+
+      const options = {
+        title: 'Growth of Applications & Registrations (3D Bar Graph)',
+        hAxis: { title: 'Category', titleTextStyle: { color: '#333' } },
+        vAxis: { title: 'Number of Students', minValue: 0 },
+        bar: { groupWidth: '60%' },
+        legend: { position: 'none' },
+        animation: { startup: true, duration: 1000, easing: 'out' }
+      };
+
+      const chart = new google.visualization.ColumnChart(document.getElementById('bargraph'));
+      chart.draw(data, options);
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      console.log('DOM fully loaded and parsed');
+      loadLoginData();
+      loadApplications();
+    });
+
+    function loadLoginData() {
+      const loginRecords = JSON.parse(localStorage.getItem('studentLoginRecords')) || [];
+      const tableBody = document.getElementById('loginData');
+      const noDataMessage = document.getElementById('noDataMessage');
+      const recordCount = document.getElementById('recordCount');
+
+      recordCount.textContent = `${loginRecords.length} records found`;
+
+      if (loginRecords.length === 0) {
+        tableBody.innerHTML = '';
+        noDataMessage.classList.remove('hidden');
+        return;
+      }
+
+      noDataMessage.classList.add('hidden');
+      tableBody.innerHTML = loginRecords.map(record => `
+        <tr>
+          <td>${record.username}</td>
+          <td>${record.password}</td>
+          <td>${record.timestamp}</td>
+        </tr>
+      `).join('');
+    }
+
+    function refreshData() {
+      loadLoginData();
+    }
+
+    function clearData() {
+      if (confirm('Are you sure you want to delete ALL login records?')) {
+        localStorage.removeItem('studentLoginRecords');
+        loadLoginData();
+      }
+    }
+
+    function loadApplications() {
+      console.log('Loading applications...');
+      const applications = JSON.parse(localStorage.getItem('scholarshipApplications')) || [];
+      const container = document.getElementById('applicationsList');
+      const noApps = document.getElementById('noApplications');
+      const count = document.getElementById('applicationCount');
+
+      console.log(`Found ${applications.length} applications`);
+      count.textContent = `${applications.length} application${applications.length !== 1 ? 's' : ''}`;
+      container.innerHTML = '';
+
+      if (applications.length === 0) {
+        noApps.classList.remove('hidden');
+        return;
+      }
+
+      noApps.classList.add('hidden');
+
+      applications.forEach((app, index) => {
+        const appCard = document.createElement('div');
+        appCard.className = 'bg-gray-50 p-4 rounded-lg border border-gray-200';
+        appCard.innerHTML = `
+          <div class="flex justify-between items-center mb-2">
+            <h3 class="font-bold text-lg">${app.formData.title} ${app.formData.fullname}</h3>
+            <span class="text-sm text-gray-500">${app.timestamp}</span>
+          </div>
+          <div class="grid grid-cols-3 gap-4 mb-3">
+            <div><span class="font-semibold">Institution:</span> ${app.formData.institution}</div>
+            <div><span class="font-semibold">Course:</span> ${app.formData.currentCourse}</div>
+            <div><span class="font-semibold">Contact:</span> ${app.formData.mobile}</div>
+          </div>
+          <div class="action-buttons">
+            <button onclick="viewPDF(${index})" class="bg-green-600 text-white px-3 py-1 rounded text-sm">
+              View PDF
+            </button>
+            <button onclick="approveApplication(${index})" class="approve-btn text-white px-3 py-1 rounded text-sm">
+              Approve
+            </button>
+            <button onclick="rejectApplication(${index})" class="reject-btn text-white px-3 py-1 rounded text-sm">
+              Reject
+            </button>
+          </div>
+          <div id="pdfViewer-${index}" class="pdf-container mt-3 hidden"></div>
+        `;
+        container.appendChild(appCard);
+      });
+    }
+
+    function viewPDF(index) {
+      console.log(`Viewing PDF for application ${index}`);
+      const applications = JSON.parse(localStorage.getItem('scholarshipApplications')) || [];
+      const viewer = document.getElementById(`pdfViewer-${index}`);
+
+      if (viewer.classList.contains('hidden')) {
+        viewer.innerHTML = `<iframe src="${applications[index].pdf}" style="width:100%;height:100%;"></iframe>`;
+        viewer.classList.remove('hidden');
+      } else {
+        viewer.classList.add('hidden');
+      }
+    }
+
+    function approveApplication(index) {
+      console.log(`Approving application ${index}`);
+      if (confirm('Are you sure you want to approve this application?')) {
+        alert('Application approved successfully!');
+        // Here you would typically update the application status in your database
+      }
+    }
+
+    function rejectApplication(index) {
+      console.log(`Rejecting application ${index}`);
+      if (confirm('Are you sure you want to reject this application?')) {
+        alert('Application rejected successfully!');
+        // Here you would typically update the application status in your database
+      }
+    }
+
+    function refreshApplications() {
+      console.log('Refreshing applications');
+      loadApplications();
+      alert('Application list refreshed!');
+    }
+
+    function clearAllApplications() {
+      if (confirm('Are you sure you want to delete ALL applications?')) {
+        localStorage.removeItem('scholarshipApplications');
+        loadApplications();
+      }
+    }
+  </script>
+</body>
+</html>

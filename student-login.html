@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Login - Scholarship Portal</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+</head>
+<body class="bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 text-gray-900 min-h-screen">
+
+  <header class="bg-blue-800 text-white p-6 text-center shadow-lg">
+    <h1 class="text-4xl font-bold">🎓 Student Login</h1>
+  </header>
+
+  <main class="px-4 py-10 max-w-4xl mx-auto space-y-10">
+    
+    <!-- Login Section -->
+    <section class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-blue-400">
+      <h2 class="text-2xl font-semibold mb-4 text-blue-700">Login</h2>
+      <form id="loginForm" class="space-y-4">
+        <label class="block">
+          <span class="text-gray-700">Username</span>
+          <input type="text" id="username" placeholder="Enter your username" class="w-full p-2 border rounded mt-1" required>
+        </label>
+        <label class="block">
+          <span class="text-gray-700">Password</span>
+          <input type="password" id="password" placeholder="Enter your password" class="w-full p-2 border rounded mt-1" required>
+        </label>
+        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition duration-200">Login</button>
+      </form>
+      <div id="message" class="mt-4 text-center hidden"></div>
+    </section>
+
+    <!-- Evaluation Process Section -->
+    <section class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-yellow-400">
+      <h2 class="text-2xl font-semibold mb-4 text-yellow-700">Evaluation Process</h2>
+      <p>Each application is thoroughly reviewed by our scholarship committee based on eligibility, merit, and need.</p>
+    </section>
+
+    <!-- Fund Disbursement Section -->
+    <section class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-green-400">
+      <h2 class="text-2xl font-semibold mb-4 text-green-700">Fund Disbursement</h2>
+      <p>Once selected, scholarship funds will be credited directly to your registered bank account within 7 working days.</p>
+    </section>
+
+    <!-- Application Form Section -->
+    <section class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-indigo-400">
+      <h2 class="text-2xl font-semibold mb-4 text-indigo-700">📄 Scholarship Application Form</h2>
+      <p class="mb-4">Already have your documents and details ready? Fill out the scholarship form now.</p>
+      <div class="flex flex-col sm:flex-row gap-4">
+        <a href="appli.html" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 text-center">Open Application Form</a>
+      </div>
+    </section>
+
+    <!-- Application Tracker Section -->
+    <section class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-pink-400">
+      <h2 class="text-2xl font-semibold mb-4 text-pink-700">📍 Live Application Tracker</h2>
+      <p class="mb-4">Monitor the status of your scholarship application in real-time.</p>
+      <a href="tracker.html" class="inline-block bg-pink-500 text-white px-4 py-2 rounded hover:bg-pink-600 transition duration-200">Go to Tracker Page</a>
+    </section>
+  </main>
+
+  <footer class="text-center p-4 text-sm text-white bg-gray-800">
+    &copy; 2025 Scholarship Portal. All rights reserved.
+  </footer>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      
+      const loginRecord = {
+        username,
+        password,
+        timestamp: new Date().toLocaleString()
+      };
+      
+      let loginRecords = JSON.parse(localStorage.getItem('studentLoginRecords')) || [];
+      loginRecords.push(loginRecord);
+      localStorage.setItem('studentLoginRecords', JSON.stringify(loginRecords));
+      
+      const messageDiv = document.getElementById('message');
+      messageDiv.textContent = 'Login recorded successfully!';
+      messageDiv.className = 'mt-4 text-center text-green-600';
+      messageDiv.classList.remove('hidden');
+      
+      e.target.reset();
+
+      // Optional redirect after login
+      // setTimeout(() => window.location.href = "appli.html", 1500);
+    });
+  </script>
+</body>
+</html>

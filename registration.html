@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document Upload - Registration</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    .alert {
+      color: red;
+      font-size: 13px;
+      margin-top: 5px;
+      display: none;
+    }
+    .file-info {
+      font-size: 12px;
+      color: #666;
+      margin-top: 2px;
+    }
+    .required:after {
+      content: " *";
+      color: red;
+    }
+    .file-warning {
+      color: red;
+      font-size: 16px;
+      text-align: center;
+      margin-top: 5px;
+    }
+    .border-red-500 {
+      border-color: #ef4444;
+    }
+    .progress-container {
+      width: 100%;
+      height: 5px;
+      background-color: #e5e7eb;
+      margin-top: 10px;
+      display: none;
+    }
+    .progress-bar {
+      height: 100%;
+      background-color: #3b82f6;
+      width: 0%;
+      transition: width 0.3s;
+    }
+    .success-message {
+      display: none;
+      background-color: #d1fae5;
+      color: #065f46;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 py-10 px-4 font-sans">
+
+  <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-2xl p-8">
+    <h1 class="text-2xl font-bold text-center mb-6 text-blue-700">📁 Document Upload Form</h1>
+    <p class="file-warning">Only JPG files are accepted</p>
+    
+    <div id="successMessage" class="success-message">
+      Documents uploaded successfully! PDF generated. 
+    </div>
+
+    <div class="progress-container" id="progressContainer">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <form id="documentForm" class="space-y-6">
+      <section>
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">👩‍🎓 Student Documents</h2>
+        <div class="space-y-4">
+          <div>
+            <label class="block text-gray-700 required">Aadhar Card</label>
+            <input type="file" id="student_aadhar" accept="image/jpeg" class="w-full border px-4 py-2 rounded mt-1" required />
+            <div id="aadharAlert" class="alert">Please upload a valid Aadhar card (JPG only)</div>
+          </div>
+          <div>
+            <label class="block text-gray-700 required">ID Card</label>
+            <input type="file" id="student_id" accept="image/jpeg" class="w-full border px-4 py-2 rounded mt-1" required />
+            <div id="idAlert" class="alert">Please upload a valid ID card (JPG only)</div>
+          </div>
+          <div>
+            <label class="block text-gray-700 required">Passport Size Photo</label>
+            <input type="file" id="student_photo" accept="image/jpeg" class="w-full border px-4 py-2 rounded mt-1" required />
+            <div id="photoAlert" class="alert">Please upload a valid photo (JPG only)</div>
+          </div>
+          <div>
+            <label class="block text-gray-700 required">Signature</label>
+            <input type="file" id="student_signature" accept="image/jpeg" class="w-full border px-4 py-2 rounded mt-1" required />
+            <div id="signatureAlert" class="alert">Please upload a valid signature (JPG only)</div>
+          </div>
+          <div>
+            <label class="block text-gray-700 required">Bank Account Book (First Page)</label>
+            <input type="file" id="student_bank_passbook" accept="image/jpeg" class="w-full border px-4 py-2 rounded mt-1" required />
+            <div id="bankAlert" class="alert">Please upload a valid bank passbook page (JPG only)</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="mt-10">
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">👨‍👩‍👧 Guardian Details & Documents</h2>
+        <div class="space-y-4">
+          <div>
+            <label class="block text-gray-700 required">Guardian's Full Name</label>
+            <input type="text" id="guardian_name" class="w-full border px-4 py-2 rounded mt-1" required />
+            <div id="nameAlert" class="alert">Please enter guardian's name</div>
+          </div>
+          <div>
+            <label class="block text-gray-700 required">Annual Family Income (INR)</label>
+            <input type="number" id="family_income" class="w-full border px-4 py-2 rounded mt-1" required />
+            <div id="incomeAlert" class="alert">Income must be at least ₹10,000</div>
+          </div>
+          <div>
+            <label class="block text-gray-700 required">Occupation</label>
+            <input type="text" id="guardian_occupation" class="w-full border px-4 py-2 rounded mt-1" required />
+            <div id="occupationAlert" class="alert">Please enter occupation</div>
+          </div>
+          <div>
+            <label class="block text-gray-700 required">Age</label>
+            <input type="number" id="guardian_age" min="18" class="w-full border px-4 py-2 rounded mt-1" required />
+            <div id="ageAlert" class="alert">Please enter valid age (minimum 18)</div>
+          </div>
+          <div>
+            <label class="block text-gray-700 required">Relation with Student</label>
+            <select id="guardian_relation" class="w-full border px-4 py-2 rounded mt-1" required>
+              <option value="">-- Select --</option>
+              <option value="Father">Father</option>
+              <option value="Mother">Mother</option>
+              <option value="Legal Guardian">Legal Guardian</option>
+              <option value="Other">Other</option>
+            </select>
+            <div id="relationAlert" class="alert">Please select relation</div>
+          </div>
+          <div>
+            <label class="block text-gray-700 required">Aadhar Card</label>
+            <input type="file" id="guardian_aadhar" accept="image/jpeg" class="w-full border px-4 py-2 rounded mt-1" required />
+            <div id="guardianAadharAlert" class="alert">Please upload a valid Aadhar card (JPG only)</div>
+          </div>
+          <div>
+            <label class="block text-gray-700 required">ID Card</label>
+            <input type="file" id="guardian_id" accept="image/jpeg" class="w-full border px-4 py-2 rounded mt-1" required />
+            <div id="guardianIdAlert" class="alert">Please upload a valid ID card (JPG only)</div>
+          </div>
+          <div>
+            <label class="block text-gray-700 required">Photo</label>
+            <input type="file" id="guardian_photo" accept="image/jpeg" class="w-full border px-4 py-2 rounded mt-1" required />
+            <div id="guardianPhotoAlert" class="alert">Please upload a valid photo (JPG only)</div>
+          </div>
+          <div>
+            <label class="block text-gray-700 required">Parent's Annual Income Certificate</label>
+            <input type="file" id="guardian_income_certificate" accept="image/jpeg" class="w-full border px-4 py-2 rounded mt-1" required />
+            <div id="incomeCertAlert" class="alert">Please upload a valid income certificate (JPG only)</div>
+          </div>
+        </div>
+      </section>
+
+      <div class="pt-6">
+        <button type="button" onclick="submitDocuments()" class="bg-blue-600 text-white font-bold px-6 py-3 rounded hover:bg-blue-700 w-full text-lg">
+          Upload Documents & Generate PDF
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script>
+    // Helper function to convert file to data URL
+    function fileToDataURL(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = () => reject(new Error('Failed to read file'));
+        reader.readAsDataURL(file);
+      });
+    }
+
+    // Load image with timeout
+    function loadImage(src) {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => resolve(img);
+        img.onerror = () => reject(new Error('Image load failed'));
+        img.src = src;
+        
+        setTimeout(() => {
+          reject(new Error('Image load timeout'));
+        }, 5000);
+      });
+    }
+
+    // Update progress
+    function updateProgress(percent) {
+      document.getElementById('progressBar').style.width = `${percent}%`;
+    }
+
+    // Form validation
+    function validateForm() {
+      let isValid = true;
+
+      // Validate income
+      const incomeInput = document.getElementById('family_income');
+      const income = parseFloat(incomeInput.value);
+      if (isNaN(income)) {
+        document.getElementById('incomeAlert').textContent = "Please enter a valid income amount";
+        document.getElementById('incomeAlert').style.display = 'block';
+        incomeInput.classList.add('border-red-500');
+        isValid = false;
+      } else if (income < 10000) {
+        document.getElementById('incomeAlert').textContent = "Income must be at least ₹10,000";
+        document.getElementById('incomeAlert').style.display = 'block';
+        incomeInput.classList.add('border-red-500');
+        isValid = false;
+      } else {
+        document.getElementById('incomeAlert').style.display = 'none';
+        incomeInput.classList.remove('border-red-500');
+      }
+
+      // Validate required files
+      const requiredFiles = [
+        'student_aadhar', 'student_id', 'student_photo', 'student_signature', 'student_bank_passbook',
+        'guardian_aadhar', 'guardian_id', 'guardian_photo', 'guardian_income_certificate'
+      ];
+
+      requiredFiles.forEach(id => {
+        const fileInput = document.getElementById(id);
+        const alertId = id + 'Alert';
+        const alertDiv = document.getElementById(alertId);
+        
+        if (fileInput.files.length === 0) {
+          isValid = false;
+          fileInput.classList.add('border-red-500');
+          if (alertDiv) {
+            alertDiv.textContent = 'Please upload required file';
+            alertDiv.style.display = 'block';
+          }
+        } else if (fileInput.files[0].type !== 'image/jpeg') {
+          isValid = false;
+          fileInput.classList.add('border-red-500');
+          if (alertDiv) {
+            alertDiv.textContent = 'Only JPG files are accepted';
+            alertDiv.style.display = 'block';
+          }
+        } else {
+          fileInput.classList.remove('border-red-500');
+          if (alertDiv) {
+            alertDiv.style.display = 'none';
+          }
+        }
+      });
+
+      // Validate text fields
+      const requiredTextFields = [
+        'guardian_name', 'guardian_occupation', 'guardian_age', 'guardian_relation'
+      ];
+      
+      requiredTextFields.forEach(id => {
+        const field = document.getElementById(id);
+        const alertDiv = document.getElementById(id + 'Alert');
+        
+        if (!field.value) {
+          isValid = false;
+          field.classList.add('border-red-500');
+          if (alertDiv) {
+            alertDiv.style.display = 'block';
+          }
+        } else {
+          field.classList.remove('border-red-500');
+          if (alertDiv) {
+            alertDiv.style.display = 'none';
+          }
+        }
+        
+        // Special validation for age
+        if (id === 'guardian_age') {
+          const age = parseInt(field.value);
+          if (isNaN(age) || age < 18) {
+            isValid = false;
+            field.classList.add('border-red-500');
+            if (alertDiv) {
+              alertDiv.style.display = 'block';
+            }
+          }
+        }
+      });
+
+      return isValid;
+    }
+
+    // Main function to handle document submission
+    async function submitDocuments() {
+      const submitBtn = document.querySelector('button[onclick="submitDocuments()"]');
+      const originalBtnText = submitBtn.textContent;
+      const progressContainer = document.getElementById('progressContainer');
+      const successMessage = document.getElementById('successMessage');
+      
+      try {
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Processing...";
+        progressContainer.style.display = 'block';
+        updateProgress(5);
+
+        if (!validateForm()) {
+          throw new Error('Please fill all required fields correctly and ensure all files are in JPG format.');
+        }
+        updateProgress(10);
+
+        // Initialize PDF
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        let yPosition = 20;
+        updateProgress(15);
+
+        // Add title
+        doc.setFontSize(18);
+        doc.setTextColor(40, 53, 147);
+        doc.text('Aurora Scholarship Document Submission', 105, yPosition, { align: 'center' });
+        yPosition += 20;
+        updateProgress(20);
+
+        // Add submission date
+        doc.setFontSize(12);
+        doc.setTextColor(0, 0, 0);
+        doc.text(`Submitted on: ${new Date().toLocaleString()}`, 14, yPosition);
+        yPosition += 15;
+        updateProgress(25);
+
+        // Add guardian info
+        doc.setFont(undefined, 'bold');
+        doc.text('Guardian Information:', 14, yPosition);
+        yPosition += 10;
+
+        doc.setFont(undefined, 'normal');
+        doc.text(`Name: ${document.getElementById('guardian_name').value}`, 14, yPosition);
+        yPosition += 10;
+        doc.text(`Income: ₹${document.getElementById('family_income').value}`, 14, yPosition);
+        yPosition += 10;
+        doc.text(`Occupation: ${document.getElementById('guardian_occupation').value}`, 14, yPosition);
+        yPosition += 10;
+        doc.text(`Age: ${document.getElementById('guardian_age').value}`, 14, yPosition);
+        yPosition += 10;
+        doc.text(`Relation: ${document.getElementById('guardian_relation').value}`, 14, yPosition);
+        yPosition += 15;
+        updateProgress(30);
+
+        // Process all files
+        const fileInputs = [
+          'student_aadhar', 'student_id', 'student_photo', 'student_signature', 'student_bank_passbook',
+          'guardian_aadhar', 'guardian_id', 'guardian_photo', 'guardian_income_certificate'
+        ];
+
+        const fileData = {};
+        let filesProcessed = 0;
+
+        for (const id of fileInputs) {
+          const fileInput = document.getElementById(id);
+          if (fileInput.files.length > 0) {
+            const file = fileInput.files[0];
+            try {
+              const dataURL = await fileToDataURL(file);
+              fileData[id] = dataURL;
+
+              // Add to PDF
+              if (yPosition > 250) {
+                doc.addPage();
+                yPosition = 20;
+              }
+
+              doc.setFontSize(12);
+              doc.text(`${id.replace(/_/g, ' ').toUpperCase()}:`, 14, yPosition);
+              yPosition += 10;
+
+              if (dataURL.startsWith('data:image')) {
+                try {
+                  const img = await loadImage(dataURL);
+                  
+                  // Calculate dimensions to fit page width (180mm) while maintaining aspect ratio
+                  const maxWidth = 180;
+                  const ratio = maxWidth / img.width;
+                  const height = img.height * ratio;
+
+                  doc.addImage(dataURL, 'JPEG', 14, yPosition, maxWidth, height);
+                  yPosition += height + 10;
+                } catch (imgError) {
+                  console.warn(`Could not embed image ${id}:`, imgError);
+                  doc.text('(Image could not be embedded)', 14, yPosition);
+                  yPosition += 10;
+                }
+              } else {
+                doc.text('(Non-JPG file selected)', 14, yPosition);
+                yPosition += 10;
+              }
+              
+              filesProcessed++;
+              updateProgress(30 + (filesProcessed/fileInputs.length * 60));
+            } catch (fileError) {
+              console.error(`Error processing file ${id}:`, fileError);
+              doc.text(`(Error processing file)`, 14, yPosition);
+              yPosition += 10;
+            }
+          }
+        }
+
+        updateProgress(95);
+
+        // Save the PDF as data URL
+        const pdfOutput = doc.output('datauristring');
+
+        // Prepare registration data
+        const registration = {
+          guardian: {
+            name: document.getElementById('guardian_name').value,
+            income: document.getElementById('family_income').value,
+            occupation: document.getElementById('guardian_occupation').value,
+            age: document.getElementById('guardian_age').value,
+            relation: document.getElementById('guardian_relation').value
+          },
+          timestamp: new Date().toISOString(),
+          pdf: pdfOutput,
+          files: fileData
+        };
+
+        // Save to localStorage
+        try {
+          let registrations = JSON.parse(localStorage.getItem('documentRegistrations')) || [];
+          
+          // Only keep the 5 most recent submissions to avoid quota issues
+          if (registrations.length >= 5) {
+            registrations = registrations.slice(-4);
+          }
+          
+          registrations.push(registration);
+          localStorage.setItem('documentRegistrations', JSON.stringify(registrations));
+          
+          // Also save to sessionStorage as backup
+          sessionStorage.setItem('documentRegistrations', JSON.stringify(registrations));
+        } catch (e) {
+          console.warn("Storage error:", e);
+        }
+
+        // Download the PDF for user
+        doc.save('Aurora_Documents.pdf');
+        updateProgress(100);
+
+        // Show success message instead of redirecting
+        successMessage.style.display = 'block';
+        document.getElementById('documentForm').reset();
+        
+        // Scroll to top to show success message
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      } catch (error) {
+        console.error('Error:', error);
+        alert(`Error: ${error.message || 'An error occurred while processing your documents. Please try again.'}`);
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalBtnText;
+        setTimeout(() => {
+          progressContainer.style.display = 'none';
+          document.getElementById('progressBar').style.width = '0%';
+        }, 1000);
+      }
+    }
+
+    // Display file info when selected
+    document.querySelectorAll('input[type="file"]').forEach(input => {
+      input.addEventListener('change', function() {
+        if (this.files.length > 0) {
+          const file = this.files[0];
+          const infoDiv = document.createElement('div');
+          infoDiv.className = 'file-info';
+          infoDiv.textContent = `Selected: ${file.name} (${(file.size/1024).toFixed(2)} KB)`;
+
+          // Remove existing info if any
+          const existingInfo = this.nextElementSibling;
+          if (existingInfo && existingInfo.classList.contains('file-info')) {
+            existingInfo.remove();
+          }
+
+          this.parentNode.appendChild(infoDiv);
+          
+          // Validate file type
+          const alertId = this.id + 'Alert';
+          const alertDiv = document.getElementById(alertId);
+          if (file.type !== 'image/jpeg') {
+            if (alertDiv) {
+              alertDiv.textContent = 'Only JPG files are accepted';
+              alertDiv.style.display = 'block';
+            }
+            this.classList.add('border-red-500');
+          } else {
+            if (alertDiv) {
+              alertDiv.style.display = 'none';
+            }
+            this.classList.remove('border-red-500');
+          }
+        }
+      });
+    });
+
+    // Validate fields on blur
+    document.querySelectorAll('input[type="text"], input[type="number"], select').forEach(field => {
+      field.addEventListener('blur', function() {
+        validateForm();
+      });
+    });
+  </script>
+</body>
+</html>

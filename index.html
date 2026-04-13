@@ -1,0 +1,131 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scholarship Portal - Home</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/@popperjs/core@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs" defer></script>
+  <style>
+    body {
+      background: url('images/photo-1571260899304-425eee4c7efc.avif') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    .animate-fade-in {
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .animate-slide-in {
+      animation: slideIn 1s ease-in-out;
+    }
+
+    .animate-scale-up {
+      animation: scaleUp 0.8s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(10px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideIn {
+      0% { opacity: 0; transform: translateX(-30px); }
+      100% { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes scaleUp {
+      0% { opacity: 0; transform: scale(0.95); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body class="text-gray-900 min-h-screen">
+
+  <header class="bg-blue-800 bg-opacity-90 text-white py-8 px-6 shadow-md text-center animate-slide-in">
+    <h1 class="text-4xl font-extrabold tracking-tight mb-2">🌌 Aurora Scholarship Portal</h1>
+    <p class="text-md text-blue-100">Illuminating your path to academic excellence and financial freedom</p>
+    <nav class="mt-4 space-x-4">
+      <a href="index.html" class="text-white hover:underline">Home</a>
+      <a href="about.html" class="text-white hover:underline">About Us</a>
+      <a href="how-to-apply.html" class="text-white hover:underline">How to Apply</a>
+      <a href="student-login.html" class="text-white hover:underline">Student Login</a>
+      <a href="admin-login.html" class="text-white hover:underline">Admin Login</a>
+      <!-- <a href="adm.html" class="text-white hover:underline">adm Login</a> -->
+    </nav>
+  </header>
+
+  <main class="px-6 py-12 max-w-6xl mx-auto space-y-12">
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-blue-100 to-purple-100 bg-opacity-90 p-10 rounded-3xl shadow-2xl text-center animate-scale-up">
+      <h2 class="text-5xl font-extrabold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-700 via-purple-600 to-pink-500">Welcome to the Scholarship Portal</h2>
+      <p class="text-xl text-gray-800 font-medium">Your gateway to educational success. Easily apply for scholarships, track progress, and manage your funding in one place.</p>
+    </section>
+
+    <!-- Features Section -->
+    <section class="grid md:grid-cols-2 gap-8 animate-slide-in">
+      <div class="bg-white bg-opacity-90 p-6 rounded-2xl shadow-lg hover:shadow-2xl transition duration-300">
+        <h3 class="text-xl font-semibold text-blue-700 mb-2">🚀 Live Application Tracker</h3>
+        <p class="text-gray-700">Monitor your application status in real time with instant updates and progress bars.</p>
+      </div>
+      <div class="bg-white bg-opacity-90 p-6 rounded-2xl shadow-lg hover:shadow-2xl transition duration-300">
+        <h3 class="text-xl font-semibold text-blue-700 mb-2">📊 Personalized Dashboard</h3>
+        <p class="text-gray-700">Get reminders, messages, and documents tailored to your application journey.</p>
+      </div>
+      <div class="bg-white bg-opacity-90 p-6 rounded-2xl shadow-lg hover:shadow-2xl transition duration-300">
+        <h3 class="text-xl font-semibold text-blue-700 mb-2">📱 Instant Notifications</h3>
+        <p class="text-gray-700">Stay informed via SMS or email with important application alerts.</p>
+      </div>
+      <div class="bg-white bg-opacity-90 p-6 rounded-2xl shadow-lg hover:shadow-2xl transition duration-300">
+        <h3 class="text-xl font-semibold text-blue-700 mb-2">🌐 Multi-language Support</h3>
+        <p class="text-gray-700">Access the portal in your regional language for a better experience.</p>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="bg-white bg-opacity-90 p-8 rounded-3xl shadow-xl animate-scale-up">
+      <h2 class="text-2xl font-bold text-blue-800 mb-6">💬 What Our Users Say</h2>
+      <div class="space-y-4">
+        <blockquote class="italic border-l-4 border-blue-600 pl-4">"This portal made applying for scholarships so simple!" – Aisha R.</blockquote>
+        <blockquote class="italic border-l-4 border-blue-600 pl-4">"Excellent support and user experience. Highly recommend it!" – Rohit K.</blockquote>
+      </div>
+    </section>
+
+    <!-- Support and FAQs -->
+    <section class="bg-white bg-opacity-90 p-8 rounded-3xl shadow-xl animate-fade-in">
+      <h2 class="text-2xl font-bold text-blue-800 mb-6">🤝 Support & FAQs</h2>
+      <div class="space-y-4 text-gray-700">
+        <div>
+          <h3 class="font-semibold">How do I apply?</h3>
+          <p>Click on <a href="how-to-apply.html" class="text-blue-600 underline">How to Apply</a> and follow the instructions.</p>
+        </div>
+        <div>
+          <h3 class="font-semibold">When will I receive the scholarship?</h3>
+          <p>Funds are usually disbursed within 7 working days after evaluation.</p>
+        </div>
+        <div>
+          <h3 class="font-semibold">Who can I contact for help?</h3>
+          <p>Email us at <a href="mailto:support@scholarportal.com" class="text-blue-600">support@scholarportal.com</a>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Form -->
+    <section class="bg-white bg-opacity-90 p-8 rounded-3xl shadow-xl animate-slide-in">
+      <h2 class="text-2xl font-bold text-blue-800 mb-6">📨 Contact Us</h2>
+      <form class="space-y-4">
+        <input type="text" placeholder="Your Name" class="w-full p-3 border border-gray-300 rounded">
+        <input type="email" placeholder="Your Email" class="w-full p-3 border border-gray-300 rounded">
+        <textarea placeholder="Your Message" rows="4" class="w-full p-3 border border-gray-300 rounded"></textarea>
+        <button class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">Send Message</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="text-center p-6 text-sm text-gray-600 border-t bg-gray-50">
+    &copy; 2025 Scholarship Portal. All rights reserved.
+  </footer>
+</body>
+</html>
