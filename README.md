@@ -35,7 +35,7 @@ The **Aurora Scholarship Portal** addresses the challenge of **scattered and har
 * Apply seamlessly
 * Track application status
 
-🎯 My goal is to **reduce barriers** and **increase access to education funding**.
+🎯 My goal is to **reduce barriers** and **increase access to education funding for better outcome**.
 
 ---
 
