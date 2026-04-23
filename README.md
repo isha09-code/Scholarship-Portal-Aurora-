@@ -78,12 +78,6 @@ The **Aurora Scholarship Portal** addresses the challenge of **scattered and har
 
 ---
 
-### 📝 Student Login
-
-<img width="379" height="530" alt="studentlogin" src="https://github.com/user-attachments/assets/db9f8bb1-b4e4-4d96-8b28-5b945ed9ac03" />
-
----
-
 ### 🔐 Admin Login
 
 <img width="478" height="574" alt="adminlogin" src="https://github.com/user-attachments/assets/29889f21-0a88-4ecc-a85a-5a36fa2ca8fc" />
